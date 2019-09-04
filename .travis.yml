@@ -18,3 +18,17 @@ after_success:
   - docker push iyadbitar/multi-server
   - docker push iyadbitar/multi-worker
   - docker push iyadbitar/multi-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: multi-docker
+  env: multidocker2-env
+  bucket_name: elasticbeanstalk-us-east-2-276300688993
+  bucket_path: multi-docker
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secrete_access_key:
+    secure: $AWS_ACCESS_SECRETE
