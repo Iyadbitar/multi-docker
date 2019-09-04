@@ -24,7 +24,7 @@
 		},
 		{
 			"name": "nginx",
-			"image": "iyadbitar/nginx",
+			"image": "iyadbitar/multi-nginx",
 			"hostname": "nginx",
 			"essential": true,
 			"memory": 128,
