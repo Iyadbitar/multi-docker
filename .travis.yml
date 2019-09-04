@@ -1,0 +1,17 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t iyadbitar/react-test-docker -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true iyadbitar/react-test-docker npm run test
+
+after_success:
+  - docker build -t iyadbitar/multi-client ./client
+  - docker build -t iyadbitar/multi-server ./server
+  - docker build -t iyadbitar/multi-worker ./worker
+  - docker build -t iyadbitar/multi-nginx ./nginx
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push iyadbitar/multi-client iyadbitar/multi-server iyadbitar/multi-worker iyadbitar/multi-nginx
